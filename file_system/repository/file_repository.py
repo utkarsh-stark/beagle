@@ -67,7 +67,7 @@ class FileRepository(object):
                 metadata_query_dict['metadata__%s__regex' % k] = v
         create_query_dict.update(metadata_query_dict)
         queryset = queryset.filter(
-            Q(**create_query_dict) & Q(file__sample__redact=False)) if filter_redact else queryset.filter(
+            Q(**create_query_dict) or Q(file__sample__redact=False)) if filter_redact else queryset.filter(
             **create_query_dict)
 
         if values_metadata:
